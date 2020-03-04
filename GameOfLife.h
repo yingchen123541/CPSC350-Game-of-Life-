@@ -2,7 +2,7 @@
 
 using namespace std;
 
-class GameOfLife{
+//class GameOfLife{
 
 
 
@@ -11,4 +11,4 @@ class GameOfLife{
 
 
 
-};
+//};
