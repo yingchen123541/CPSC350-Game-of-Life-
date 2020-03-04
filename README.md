@@ -9,5 +9,5 @@ Student ID2:
 Email2:
 
 references: https://www.geeksforgeeks.org/multidimensional-arrays-c-cpp/ how to initialize 2D array in c++
-            http://www.cplusplus.com/forum/beginner/91102/ insert elements in array
-            https://www.geeksforgeeks.org/converting-strings-numbers-cc/ convert string to int 
+            https://codescracker.com/cpp/program/cpp-program-insert-element-in-array.htm insert elements in array
+            https://www.geeksforgeeks.org/converting-strings-numbers-cc/convert string to int
