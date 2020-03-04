@@ -1,15 +1,23 @@
 #include "GameOfLife.h"
 #include "GameOfLife.cpp"
 #include<fstream>
+#include <string>
 
 using namespace std;
 
 int main (int argc, char **argv){
+  int row;
+  int column;
+  string CellArray[row][column];
+  string Line;
+  string answer;
+  string MapFile;
+
   cout << "do you want to provide a map file of the world, or you want random assignment? " << endl;
   cout << "type yes for map file, no for random assignment" << endl;
   cin >> answer;
 
-  if (answer==yes)
+  if (answer=="yes")
   {
     //provide file path to open file
     cout << "enter the file you want to open " << endl;
@@ -22,12 +30,28 @@ int main (int argc, char **argv){
       cerr << "unable to open file" << endl;
       exit(1);
     }
+      //input file is successfully opened
     else if(InputFile)
     {
-
+      //read through the input file line by line
+      while (getline(InputFile, Line))
+      {
+        for(int a=0; a<1; a++)
+        {
+          //convert Line to an int
+          row = stoi(Line);
+        }
+        for(int a=0; a<2; a++)
+        {
+          column = stoi(Line);
+        }
+        cout << "row is" << row << endl;
+        cout << "column is" << column << endl;
+      }
     }
-
-  } else if (answer==no)
+  }
+/*
+  else if (answer==no)
   {
     cout << "random assignment" << endl;
     cout << "enter the number of rows of the world" << endl;
@@ -36,6 +60,8 @@ int main (int argc, char **argv){
     cin >> column;
     //decimal value is greater than 0 and less than or equal to 1
     cout << "enter a decimal value representing the initial population density of the world" << endl;
+    //create an array to hold all cells
+    CellArray[row][column];
   }
 
   cout << "what kind of boundary mode do you want to run in? choose among classic mode, doughnut mode, and mirror Mode" << endl;
@@ -77,6 +103,6 @@ int main (int argc, char **argv){
     OutputFile.open(outputfile);
   }
 
-
+*/
   return 0;
 }
