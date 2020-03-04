@@ -78,7 +78,7 @@ int main (){
     //create an array to hold all cells
     CellArray[row][column];
 
-    /////////generate cells to occupy blocks in array, how????
+    /////////generate cells according to density to occupy blocks in array, how????
   }
 
 
