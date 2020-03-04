@@ -1,3 +1,5 @@
+//////////how to do things (set array, define methods) in different classes instead of all in main????
+
 #include "GameOfLife.h"
 #include "GameOfLife.cpp"
 #include<fstream>
@@ -9,6 +11,7 @@ int main (){
   std:: string Line;
   int row=0;
   int column=0;
+  double density=0;
   string CellArray[row][column];
   string answer;
   string MapFile;
@@ -37,9 +40,9 @@ int main (){
       //read through the input file line by line
       while (getline(InputFile, Line))
       {
-        //tutor: how do i only read the 1st and 2nd line from a file?
-        //and how to start reading from the 3rd line to put things in 2d array?
-        //want to only read the 1st line and put in row
+        ////////tutor: how do i only read the 1st and 2nd line from a file?
+        ///////and how to start reading from the 3rd line to put things in 2d array?
+        ///////want to only read the 1st line and put in row
         for(int a=0; a<1; a++)
         {
             //convert Line to an int
@@ -47,19 +50,21 @@ int main (){
           convert >> row;
           cout << "row is" << row << endl;
         }
-        //only read the 2nd line to put in column
+        //////only read the 2nd line to put in column
         for(int a=0; a<2; a++)
         {
           stringstream convert(Line);
           convert >> column;
           cout << "column is" << row << endl;
         }
+          CellArray[row][column];
+        ////////then read from the 3rd line to the end to add cells to array
       }
     }
     InputFile.close();
   }
 
-//situation for random assignment 
+//situation for random assignment
   else if (answer==no)
   {
     cout << "random assignment" << endl;
@@ -68,10 +73,23 @@ int main (){
     cout << "enter the number of columns of the world" << endl;
     cin >> column;
     //decimal value is greater than 0 and less than or equal to 1
-    cout << "enter a decimal value representing the initial population density of the world" << endl;
+    cout << "enter a decimal value between 0 and 1 representing the initial population density of the world" << endl;
+    cin >> density;
     //create an array to hold all cells
     CellArray[row][column];
+
+    /////////generate cells to occupy blocks in array, how????
   }
+
+
+
+
+
+
+
+
+
+
 
   cout << "what kind of boundary mode do you want to run in? choose among classic mode, doughnut mode, and mirror Mode" << endl;
   cin >> mode;
@@ -112,6 +130,6 @@ int main (){
     OutputFile.open(outputfile);
   }
 
-*/
+
   return 0;
 }
