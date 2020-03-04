@@ -1,15 +1,15 @@
 #include "GameOfLife.h"
 #include "GameOfLife.cpp"
 #include<fstream>
-#include <string>
+#include <sstream>
 
 using namespace std;
 
-int main (int argc, char **argv){
-  int row;
-  int column;
+int main (){
+  std:: string Line;
+  int row=0;
+  int column=0;
   string CellArray[row][column];
-  string Line;
   string answer;
   string MapFile;
 
@@ -17,10 +17,11 @@ int main (int argc, char **argv){
   cout << "type yes for map file, no for random assignment" << endl;
   cin >> answer;
 
+//situation when wants to open a map file
   if (answer=="yes")
   {
     //provide file path to open file
-    cout << "enter the file you want to open " << endl;
+    cout << "enter the file you want to open" << endl;
     cin >> MapFile;
     ifstream InputFile;
     InputFile.open(MapFile);
@@ -36,21 +37,29 @@ int main (int argc, char **argv){
       //read through the input file line by line
       while (getline(InputFile, Line))
       {
+        //tutor: how do i only read the 1st and 2nd line from a file?
+        //and how to start reading from the 3rd line to put things in 2d array?
+        //want to only read the 1st line and put in row
         for(int a=0; a<1; a++)
         {
-          //convert Line to an int
-          row = stoi(Line);
+            //convert Line to an int
+          stringstream convert(Line);
+          convert >> row;
+          cout << "row is" << row << endl;
         }
+        //only read the 2nd line to put in column
         for(int a=0; a<2; a++)
         {
-          column = stoi(Line);
+          stringstream convert(Line);
+          convert >> column;
+          cout << "column is" << row << endl;
         }
-        cout << "row is" << row << endl;
-        cout << "column is" << column << endl;
       }
     }
+    InputFile.close();
   }
-/*
+
+//situation for random assignment 
   else if (answer==no)
   {
     cout << "random assignment" << endl;
