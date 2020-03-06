@@ -1,5 +1,6 @@
-//////////how to do things (set array, define methods) in different classes instead of all in main????
-
+//////////how to do things (set array, define methods) in different classes instead of all in main???? answer in phone photo
+//look at NaiveList.cpp and header file, on how to define method and void then can call it in main
+//if main program works, can keep them in main, just do mode or at least sth in different classes
 #include "GameOfLife.h"
 #include "GameOfLife.cpp"
 #include<fstream>
@@ -12,9 +13,10 @@ int main (){
   int row=0;
   int column=0;
   double density=0;
-  string CellArray[row][column];
   string answer;
   string MapFile;
+  string cell;
+
 
   cout << "do you want to provide a map file of the world, or you want random assignment? " << endl;
   cout << "type yes for map file, no for random assignment" << endl;
@@ -37,35 +39,48 @@ int main (){
       //input file is successfully opened
     else if(InputFile)
     {
-      //read through the input file line by line
+      //read the first line from input file
+      getline(InputFile, Line, '\n');
+      row = stoi(Line);
+      cout << "row is " << row << endl;
+
+      // read the second line from input file
+      getline(InputFile, Line, '\n');
+      column = stoi(Line);
+      cout << "column is " << column << endl;
+
+      string cellArray[row][column];
+
+
       while (getline(InputFile, Line))
       {
-        ////////tutor: how do i only read the 1st and 2nd line from a file?
-        ///////and how to start reading from the 3rd line to put things in 2d array?
-        ///////want to only read the 1st line and put in row
-        for(int a=0; a<1; a++)
-        {
-            //convert Line to an int
-          stringstream convert(Line);
-          convert >> row;
-          cout << "row is" << row << endl;
-        }
-        //////only read the 2nd line to put in column
-        for(int a=0; a<2; a++)
-        {
-          stringstream convert(Line);
-          convert >> column;
-          cout << "column is" << row << endl;
-        }
-          CellArray[row][column];
-        ////////then read from the 3rd line to the end to add cells to array
+        int col = 0;
+         for(int z=0; z < row; ++z)
+         {
+           //divide each line into single letters
+            cell = Line[z];
+            if (cell == "-"){
+              //add all empty cells to cellarray
+              cellArray[z][col] = "-";
+            }
+            else if (cell == "X"){
+              //add all cells to cellarray
+              cellArray[z][col] = "X";
+            }
+            else{
+              cout << "Ya dun messed up, chief." << endl;
+            }
+            //print out all cells in mapfile
+            cout << Line[z] << endl;
+         }
+         col++;
       }
     }
     InputFile.close();
   }
 
 //situation for random assignment
-  else if (answer==no)
+/*  else if (answer==no)
   {
     cout << "random assignment" << endl;
     cout << "enter the number of rows of the world" << endl;
@@ -130,6 +145,6 @@ int main (){
     OutputFile.open(outputfile);
   }
 
-
+*/
   return 0;
 }
