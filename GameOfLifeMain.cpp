@@ -1,6 +1,7 @@
 //////////how to do things (set array, define methods) in different classes instead of all in main???? answer in phone photo
 //look at NaiveList.cpp and header file, on how to define method and void then can call it in main
 //if main program works, can keep them in main, just do mode or at least sth in different classes
+///have 2 versions of the grid. One is for the current generation, and the other is for computing the next generation (based on the current generation) without side effects.
 #include "GameOfLife.h"
 #include "GameOfLife.cpp"
 #include<fstream>
@@ -16,6 +17,7 @@ int main (){
   string answer;
   string MapFile;
   string cell;
+  double randomNumber;
 
 
   cout << "do you want to provide a map file of the world, or you want random assignment? " << endl;
@@ -49,23 +51,23 @@ int main (){
       column = stoi(Line);
       cout << "column is " << column << endl;
 
-      string cellArray[row][column];
+      string cellArrayMap[row][column];
 
 
       while (getline(InputFile, Line))
       {
-        int col = 0;
+        int colMap = 0;
          for(int z=0; z < row; ++z)
          {
            //divide each line into single letters
             cell = Line[z];
             if (cell == "-"){
-              //add all empty cells to cellarray
-              cellArray[z][col] = "-";
+              //add all empty cells to cellarray, this is the grid for first generation with mapfile
+              cellArrayMap[z][colMap] = "-";
             }
             else if (cell == "X"){
               //add all cells to cellarray
-              cellArray[z][col] = "X";
+              cellArrayMap[z][colMap] = "X";
             }
             else{
               cout << "Ya dun messed up, chief." << endl;
@@ -73,14 +75,14 @@ int main (){
             //print out all cells in mapfile
             cout << Line[z] << endl;
          }
-         col++;
+         colMap++;
       }
     }
     InputFile.close();
   }
 
 //situation for random assignment
-/*  else if (answer==no)
+  else if (answer==no)
   {
     cout << "random assignment" << endl;
     cout << "enter the number of rows of the world" << endl;
@@ -91,9 +93,28 @@ int main (){
     cout << "enter a decimal value between 0 and 1 representing the initial population density of the world" << endl;
     cin >> density;
     //create an array to hold all cells
-    CellArray[row][column];
-
-    /////////generate cells according to density to occupy blocks in array, how????
+    string CellArrayRandom[row][column];
+    bool arraynotFull;
+    //generate cells according to density to occupy blocks in array
+    while (arraynotFull=true)
+    {
+      int colRandom = 0;
+      for(int i=0; i < row; ++i)
+      {
+       randomNumber = ((double)rand()/(double)RAND_MAX);
+       if (randomNumber<density)
+       {
+         CellArrayRandom[i][colRandom] = "X";
+       } else{
+         CellArrayRandom[i][colRandom] = "-";
+       }
+      }
+      colRandom++;
+      if (i>=row || colRandom>=column)
+      {
+        arraynotFull=false;
+      }
+    }
   }
 
 
@@ -104,7 +125,7 @@ int main (){
 
 
 
-
+/*
 
   cout << "what kind of boundary mode do you want to run in? choose among classic mode, doughnut mode, and mirror Mode" << endl;
   cin >> mode;
