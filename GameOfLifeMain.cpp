@@ -76,7 +76,8 @@ int main (){
               cout << "Ya dun messed up, chief." << endl;
             }
             //print out all cells in mapfile
-            cout << Line[z] << endl;
+  ////////////////tutor: how come this is not printing out the right thing?
+            cout << cellArrayMap[z][colMap] << endl;
          }
          colMap++;
       }
@@ -88,16 +89,22 @@ int main (){
        {
         cout << "classic mode" << endl;
         //code for classic mode, get 1st generation grid then calculate
+        //add in new cells and remove cells in certin spots in array
+        //then update 1st generation cellArrayMap reference to 2nd generation cellArrayMap, then do 3rd generation using 2nd gen array
        }
        else if (mode=="doughnut")
        {
         cout << "doughnutmode" << endl;
         //code for doughnut mode, get 1st generation grid then calculate
+        //add in new cells and remove cells in certin spots in array
+      //then update 1st generation cellArrayMap reference to 2nd generation cellArrayMap, then do 3rd generation using 2nd gen array
        }
        else if (mode=="mirror")
        {
         cout << "mirror mode" << endl;
         //code for mirror mode, get 1st generation grid then calculate
+        //add in new cells and remove cells in certin spots in array
+      //then update 1st generation cellArrayMap reference to 2nd generation cellArrayMap, then do 3rd generation using 2nd gen array
        }
        else
        {
@@ -166,6 +173,7 @@ int main (){
   }
 
 ///////////tutor: how to add cells into array under random assignment? now breaks the loop too soon... only adding 2 cells...
+//////////tutor: when add cells under mapfile into array, doesn't output the right thing when try to print out array 
 //prompt for mode under random assignment after figure out how to add cells into array correctly
 
 
