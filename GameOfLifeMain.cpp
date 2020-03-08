@@ -162,19 +162,11 @@ int main (){
       }
       break;
       colRandom++;
-    //  if (colRandom>=column)
-    //  {
-    //    arraynotFull=false;
-    //  }
-      //break;
     }
-    //print out CellArrayRandom to check whether holding the cells right
-    //for (int a = 0; a < row; a++)
-    //   for (int b = 0; b < column; b++)
-       //cout << CellArrayRandom[i][colRandom] << "\n" << endl;
   }
 
-
+///////////tutor: how to add cells into array under random assignment? now breaks the loop too soon... only adding 2 cells...
+//prompt for mode under random assignment after figure out how to add cells into array correctly
 
 
 
