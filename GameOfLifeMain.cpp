@@ -18,6 +18,9 @@ int main (){
   string MapFile;
   string cell;
   double randomNumber;
+  string mode;
+  string choice;
+  string outputfile;
 
 
   cout << "do you want to provide a map file of the world, or you want random assignment? " << endl;
@@ -53,7 +56,7 @@ int main (){
 
       string cellArrayMap[row][column];
 
-
+     //read from map file and add cells to 2d array
       while (getline(InputFile, Line))
       {
         int colMap = 0;
@@ -77,10 +80,56 @@ int main (){
          }
          colMap++;
       }
+     //choose mode then calculate after getting 1st generation cell array (need to ask for mode in random assignent too)
+       cout << "what kind of boundary mode do you want to run in? choose among classic mode, doughnut mode, and mirror Mode" << endl;
+       cin >> mode;
+
+       if (mode=="classic")
+       {
+        cout << "classic mode" << endl;
+        //code for classic mode, get 1st generation grid then calculate
+       }
+       else if (mode=="doughnut")
+       {
+        cout << "doughnutmode" << endl;
+        //code for doughnut mode, get 1st generation grid then calculate
+       }
+       else if (mode=="mirror")
+       {
+        cout << "mirror mode" << endl;
+        //code for mirror mode, get 1st generation grid then calculate
+       }
+       else
+       {
+         cerr << "not a valid mode" << endl;
+         exit(1);
+       }
+       //pause between generation or output to a file
+         cout << "enter yes for pause between generations, enter no for output to a file" << endl;
+         cin >> choice;
+
+         if (choice=="yes")
+         {
+           //pause between generations
+           cout << "pause between generations" << endl;
+         }
+         else if (choice=="no")
+         {
+           //output everything to a file
+           ofstream OutputFile;
+           cout << "enter an output file name" << endl;
+           cin >> outputfile;
+           OutputFile.open(outputfile);
+         }
     }
     InputFile.close();
+
+
+
+
+
+    //situation for random assignment
   }else if (answer=="no"){
-//situation for random assignment
     cout << "random assignment" << endl;
     cout << "enter the number of rows of the world" << endl;
     cin >> row;
@@ -134,12 +183,11 @@ int main (){
 
 
 /*
-
+//mode part need to prompt the user twice since mapfile and random assignment will run mode with different starting grid (first generation)
   cout << "what kind of boundary mode do you want to run in? choose among classic mode, doughnut mode, and mirror Mode" << endl;
   cin >> mode;
   cout << "want a brief pause between generations?" << endl;
-  cout << "want to press “Enter” to display the next generation?" << endl;
-  cout << "or want to output everything to a file?" << endl;
+  cout << "want to press “Enter” to display the next generation? or want to output everything to a file?" << endl;
   cout << "enter yes for pause between generations, enter no for output to a file" << endl;
   cin >> choice;
 
