@@ -79,11 +79,8 @@ int main (){
       }
     }
     InputFile.close();
-  }
-
+  }else if (answer=="no"){
 //situation for random assignment
-  else if (answer==no)
-  {
     cout << "random assignment" << endl;
     cout << "enter the number of rows of the world" << endl;
     cin >> row;
@@ -108,13 +105,24 @@ int main (){
        } else{
          CellArrayRandom[i][colRandom] = "-";
        }
+         cout << CellArrayRandom[i][colRandom] << "\n" << endl;
+         if (colRandom>=column && i>=row)
+         {
+           arraynotFull=false;
+         }
       }
+      break;
       colRandom++;
-      if (i>=row || colRandom>=column)
-      {
-        arraynotFull=false;
-      }
+    //  if (colRandom>=column)
+    //  {
+    //    arraynotFull=false;
+    //  }
+      //break;
     }
+    //print out CellArrayRandom to check whether holding the cells right
+    //for (int a = 0; a < row; a++)
+    //   for (int b = 0; b < column; b++)
+       //cout << CellArrayRandom[i][colRandom] << "\n" << endl;
   }
 
 
