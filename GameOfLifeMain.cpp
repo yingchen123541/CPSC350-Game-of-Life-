@@ -1,9 +1,8 @@
-//////////how to do things (set array, define methods) in different classes instead of all in main???? answer in phone photo
+
 //look at NaiveList.cpp and header file, on how to define method and void then can call it in main
 //if main program works, can keep them in main, just do mode or at least sth in different classes
 ///have 2 versions of the grid. One is for the current generation, and the other is for computing the next generation (based on the current generation) without side effects.
-#include "GameOfLife.h"
-#include "GameOfLife.cpp"
+#include <iostream>
 #include<fstream>
 #include <sstream>
 
@@ -77,8 +76,9 @@ int main (){
             }
             //print out all cells in mapfile
   ////////////////tutor: how come this is not printing out the right thing?
-            cout << cellArrayMap[z][colMap] << endl;
+            cout << cellArrayMap[z][colMap];
          }
+         cout << endl;
          colMap++;
       }
      //choose mode then calculate after getting 1st generation cell array (need to ask for mode in random assignent too)
@@ -152,7 +152,7 @@ int main (){
     while (arraynotFull=true)
     {
       int colRandom = 0;
-      for(int i=0; i < row; ++i)
+      for(int i=0; i <= row; ++i)
       {
        randomNumber = ((double)rand()/(double)RAND_MAX);
        if (randomNumber<density)
@@ -161,7 +161,7 @@ int main (){
        } else{
          CellArrayRandom[i][colRandom] = "-";
        }
-         cout << CellArrayRandom[i][colRandom] << "\n" << endl;
+         cout << CellArrayRandom[i][colRandom] << endl;
          if (colRandom>=column && i>=row)
          {
            arraynotFull=false;
@@ -218,12 +218,12 @@ int main (){
     cout << "enter yes for pause between generations, enter no for output to a file" << endl;
     cin >> choice;
 
-    if (choice==yes)
+    if (choice=="yes")
     {
       //pause between generations
       cout << "pause between generations" << endl;
     }
-    else if (choice==no)
+    else if (choice=="no")
     {
       //output everything to a file
       ofstream OutputFile;
