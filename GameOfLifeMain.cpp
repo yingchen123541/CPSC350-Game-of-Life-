@@ -58,28 +58,28 @@ int main (){
      //read from map file and add cells to 2d array
       while (getline(InputFile, Line))
       {
-        int colMap = 0;
-         for(int z=0; z < row; ++z)
+        int rowMap = 0;
+         for(int z=0; z < column; ++z)
          {
            //divide each line into single letters
             cell = Line[z];
             if (cell == "-"){
               //add all empty cells to cellarray, this is the grid for first generation with mapfile
-              cellArrayMap[z][colMap] = "-";
+              cellArrayMap[rowMap][z] = "-";
             }
             else if (cell == "X"){
               //add all cells to cellarray
-              cellArrayMap[z][colMap] = "X";
+              cellArrayMap[rowMap][z] = "X";
             }
             else{
               cout << "Ya dun messed up, chief." << endl;
             }
             //print out all cells in mapfile
   ////////////////tutor: how come this is not printing out the right thing?
-            cout << cellArrayMap[z][colMap];
+            cout << cellArrayMap[rowMap][z];
          }
          cout << endl;
-         colMap++;
+         rowMap++;
       }
      //choose mode then calculate after getting 1st generation cell array (need to ask for mode in random assignent too)
        cout << "what kind of boundary mode do you want to run in? choose among classic mode, doughnut mode, and mirror Mode" << endl;
