@@ -75,7 +75,6 @@ int main (){
               cout << "Ya dun messed up, chief." << endl;
             }
             //print out all cells in mapfile
-  ////////////////tutor: how come this is not printing out the right thing?
             cout << cellArrayMap[rowMap][z];
          }
          cout << endl;
@@ -149,29 +148,30 @@ int main (){
     string CellArrayRandom[row][column];
     bool arraynotFull;
     //generate cells according to density to occupy blocks in array
-    while (arraynotFull=true)
+    while (arraynotFull)
     {
-      int colRandom = 0;
-      for(int i=0; i <= row; ++i)
+      int rowRandom = 0;
+      for(int i=0; i < column; ++i)
       {
        randomNumber = ((double)rand()/(double)RAND_MAX);
        if (randomNumber<density)
        {
-         CellArrayRandom[i][colRandom] = "X";
+         CellArrayRandom[rowRandom][i] = "X";
        } else{
-         CellArrayRandom[i][colRandom] = "-";
+         CellArrayRandom[rowRandom][i] = "-";
        }
-         cout << CellArrayRandom[i][colRandom] << endl;
-         if (colRandom>=column && i>=row)
+         cout << CellArrayRandom[rowRandom][i];
+
+         if (i>=column)
          {
-           arraynotFull=false;
+           arraynotFull==false;
          }
       }
-      break;
-      colRandom++;
+      //break;
+      cout << endl;
+      rowRandom++;
     }
     ///////////tutor: how to add cells into array under random assignment? now breaks the loop too soon... only adding 2 cells...
-    //////////tutor: when add cells under mapfile into array, doesn't output the right thing when try to print out array
 
 
 
