@@ -170,58 +170,67 @@ int main (){
       break;
       colRandom++;
     }
+    ///////////tutor: how to add cells into array under random assignment? now breaks the loop too soon... only adding 2 cells...
+    //////////tutor: when add cells under mapfile into array, doesn't output the right thing when try to print out array
+
+
+
+
+
+
+
+
+
+    //prompt the user for mode again, since has different grids (arrays) for random assigment and map file
+    cout << "what kind of boundary mode do you want to run in? choose among classic mode, doughnut mode, and mirror Mode" << endl;
+    cin >> mode;
+
+    if (mode=="classic")
+    {
+     cout << "classic mode" << endl;
+     //code for classic mode, get 1st generation grid then calculate
+     //add in new cells and remove cells in certin spots in array
+     //then update 1st generation CellArrayRandom reference to 2nd generation CellArrayRandom, then do 3rd generation using 2nd gen array
+    }
+    else if (mode=="doughnut")
+    {
+     cout << "doughnutmode" << endl;
+     //code for doughnut mode, get 1st generation grid then calculate
+     //add in new cells and remove cells in certin spots in array
+   //then update 1st generation CellArrayRandom reference to 2nd generation CellArrayRandom, then do 3rd generation using 2nd gen array
+    }
+    else if (mode=="mirror")
+    {
+     cout << "mirror mode" << endl;
+     //code for mirror mode, get 1st generation grid then calculate
+     //add in new cells and remove cells in certin spots in array
+   //then update 1st generation CellArrayRandom reference to 2nd generation CellArrayRandom, then do 3rd generation using 2nd gen array
+    }
+    else
+    {
+      cerr << "not a valid mode" << endl;
+      exit(1);
+    }
+
+    //pause between generations or output to a file
+    cout << "want a brief pause between generations?" << endl;
+    cout << "want to press “Enter” to display the next generation? or want to output everything to a file?" << endl;
+    cout << "enter yes for pause between generations, enter no for output to a file" << endl;
+    cin >> choice;
+
+    if (choice==yes)
+    {
+      //pause between generations
+      cout << "pause between generations" << endl;
+    }
+    else if (choice==no)
+    {
+      //output everything to a file
+      ofstream OutputFile;
+      cout << "enter an output file name" << endl;
+      cin >> outputfile;
+      OutputFile.open(outputfile);
+    }
   }
-
-///////////tutor: how to add cells into array under random assignment? now breaks the loop too soon... only adding 2 cells...
-//////////tutor: when add cells under mapfile into array, doesn't output the right thing when try to print out array 
-//prompt for mode under random assignment after figure out how to add cells into array correctly
-
-
-
-
-
-
-
-/*
-//mode part need to prompt the user twice since mapfile and random assignment will run mode with different starting grid (first generation)
-  cout << "what kind of boundary mode do you want to run in? choose among classic mode, doughnut mode, and mirror Mode" << endl;
-  cin >> mode;
-  cout << "want a brief pause between generations?" << endl;
-  cout << "want to press “Enter” to display the next generation? or want to output everything to a file?" << endl;
-  cout << "enter yes for pause between generations, enter no for output to a file" << endl;
-  cin >> choice;
-
-  if (mode==classic mode)
-  {
-
-  }
-  else if (mode==doughnut mode)
-  {
-
-  }
-  else if (mode==mirror Mode)
-  {
-
-  }
-  else
-  {
-    cerr << "not a valid mode" << endl;
-    exit(2);
-  }
-//pause between generations or output to a file
-  if (choice==yes)
-  {
-    //pause between generations
-  }
-  else if (choice==no)
-  {
-    //output everything to a file
-    ofstream OutputFile;
-    cout << "enter an output file name" << endl;
-    cin >> outputfile;
-    OutputFile.open(outputfile);
-  }
-
-*/
   return 0;
 }
