@@ -5,6 +5,8 @@
 #include <iostream>
 #include<fstream>
 #include <sstream>
+#include "modes.h"
+#include "modes.cpp"
 
 using namespace std;
 
@@ -87,6 +89,8 @@ int main (){
        if (mode=="classic")
        {
         cout << "classic mode" << endl;
+        // how to call the functions in main, what variables to use // undeclared identifier
+        cmode(cellArrayMap, cellArrayRandom, rowMap, z);
         //code for classic mode, get 1st generation grid then calculate
         //add in new cells and remove cells in certin spots in array
         //then update 1st generation cellArrayMap reference to 2nd generation cellArrayMap, then do 3rd generation using 2nd gen array
@@ -164,7 +168,7 @@ int main (){
 
          if (i>=column)
          {
-           arraynotFull==false;
+           arraynotFull=false;
          }
       }
       //break;
