@@ -5,8 +5,8 @@
 #include <iostream>
 #include<fstream>
 #include <sstream>
-#include "modes.h"
-#include "modes.cpp"
+//#include "modes.h"
+//#include "modes.cpp"
 
 using namespace std;
 
@@ -90,7 +90,7 @@ int main (){
        {
         cout << "classic mode" << endl;
         // how to call the functions in main, what variables to use // undeclared identifier
-        cmode(cellArrayMap, cellArrayRandom, rowMap, z);
+        //cmode(cellArrayMap, cellArrayRandom, rowMap, z);
         //code for classic mode, get 1st generation grid then calculate
         //add in new cells and remove cells in certin spots in array
         //then update 1st generation cellArrayMap reference to 2nd generation cellArrayMap, then do 3rd generation using 2nd gen array
@@ -134,10 +134,6 @@ int main (){
     }
     InputFile.close();
 
-
-
-
-
     //situation for random assignment
   }else if (answer=="no"){
     cout << "random assignment" << endl;
@@ -150,42 +146,23 @@ int main (){
     cin >> density;
     //create an array to hold all cells
     string CellArrayRandom[row][column];
-    bool arraynotFull;
-    //generate cells according to density to occupy blocks in array
-    while (arraynotFull)
-    {
-      int rowRandom = 0;
+    for(int j = 0; j < row; ++j){
       for(int i=0; i < column; ++i)
       {
        randomNumber = ((double)rand()/(double)RAND_MAX);
+       //generate cells according to density to occupy blocks in array
        if (randomNumber<density)
        {
-         CellArrayRandom[rowRandom][i] = "X";
+         CellArrayRandom[j][i] = "X";
        } else{
-         CellArrayRandom[rowRandom][i] = "-";
+         CellArrayRandom[j][i] = "-";
        }
-         cout << CellArrayRandom[rowRandom][i];
-
-         if (i>=column)
-         {
-           arraynotFull=false;
-         }
+       //print out cellarrayRandom
+         cout << CellArrayRandom[j][i];
       }
-      //break;
       cout << endl;
-      rowRandom++;
     }
-    ///////////tutor: how to add cells into array under random assignment? now breaks the loop too soon... only adding 2 cells...
-
-
-
-
-
-
-
-
-
-    //prompt the user for mode again, since has different grids (arrays) for random assigment and map file
+    //prompt the user for mode under random assignment
     cout << "what kind of boundary mode do you want to run in? choose among classic mode, doughnut mode, and mirror Mode" << endl;
     cin >> mode;
 
