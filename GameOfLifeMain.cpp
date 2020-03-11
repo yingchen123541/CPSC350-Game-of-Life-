@@ -5,10 +5,11 @@
 #include <iostream>
 #include<fstream>
 #include <sstream>
-//#include "modes.h"
-//#include "modes.cpp"
+
 
 using namespace std;
+
+
 
 int main (){
   std:: string Line;
@@ -22,6 +23,8 @@ int main (){
   string mode;
   string choice;
   string outputfile;
+  int neighborsMap=0;
+
 
 
   cout << "do you want to provide a map file of the world, or you want random assignment? " << endl;
@@ -56,12 +59,16 @@ int main (){
       cout << "column is " << column << endl;
 
       string cellArrayMap[row][column];
+      string cellArrayMapnew[row][column];
 
      //read from map file and add cells to 2d array
+     int rowMap = 0;
+     int z = 0;
       while (getline(InputFile, Line))
       {
-        int rowMap = 0;
-         for(int z=0; z < column; ++z)
+        rowMap = 0;
+        z = 0;
+         for(z=0; z < column; ++z)
          {
            //divide each line into single letters
             cell = Line[z];
@@ -81,33 +88,96 @@ int main (){
          }
          cout << endl;
          rowMap++;
-      }
-     //choose mode then calculate after getting 1st generation cell array (need to ask for mode in random assignent too)
-       cout << "what kind of boundary mode do you want to run in? choose among classic mode, doughnut mode, and mirror Mode" << endl;
-       cin >> mode;
+   }
+//choose mode then calculate after getting 1st generation cell array (need to ask for mode in random assignent too)
+     cout << "what kind of boundary mode do you want to run in? choose among classic mode, doughnut mode, and mirror Mode" << endl;
+     cin >> mode;
+     if (mode=="classic")
+     {
+      cout << "classic mode" << endl;
+         int Row=rowMap;
+         int Column= z;
 
-       if (mode=="classic")
-       {
-        cout << "classic mode" << endl;
-        // how to call the functions in main, what variables to use // undeclared identifier
-        //cmode(cellArrayMap, cellArrayRandom, rowMap, z);
-        //code for classic mode, get 1st generation grid then calculate
-        //add in new cells and remove cells in certin spots in array
-        //then update 1st generation cellArrayMap reference to 2nd generation cellArrayMap, then do 3rd generation using 2nd gen array
-       }
+         // converting strings into values of 1 and 0
+         int numberArrayMap[Row][Column];
+         int nextgenMap[Row][Column];
+
+
+         for(int c = 0; c < Row; ++c){
+           for(int d = 0; d < Column; ++d){
+             if (cellArrayMap[c][d] == "X"){
+               numberArrayMap[c][d] = 1;
+            } else if(cellArrayMap[c][d] == "-"){
+              numberArrayMap[c][d] = 0;
+            }
+           }
+         }
+
+         for(int c = 0; c < Row; ++c){
+           for(int d = 0; d < Column; ++d){
+             neighborsMap = numberArrayMap[Row-1][Column-1] + numberArrayMap[Row-1][Column] + numberArrayMap[Row-1][Column+1] + numberArrayMap[Row][Column+1] + numberArrayMap[Row+1][Column-1] + numberArrayMap[Row+1][Column]
+             + numberArrayMap[Row+1][Column-1] + numberArrayMap[Row][Column-1];
+//if there's only 1 neighbor, next generation in this space will be empty
+             if(neighborsMap <= 1){
+                nextgenMap[c][d] = 0;
+                cellArrayMapnew[c][d] = "-";
+              }//end if
+
+   ////if there's 2 neighbor, next generation cell lives on, if empty, still empty
+            else if(neighborsMap == 2){
+              if(numberArrayMap[c][d] == 1){
+                nextgenMap[c][d] = 1;
+                cellArrayMapnew[c][d] = "X";
+              }//end if
+              else if(numberArrayMap[c][d] == 0){
+                nextgenMap[c][d] = 0;
+                cellArrayMapnew[c][d] = "-";
+              }//end else if
+  }//end else if
+
+  //if there's 3 neighbor, next generation cell lives on, if empty, generate a new cell
+            else if(neighborsMap == 3){
+              if(numberArrayMap[c][d] == 1){
+                  nextgenMap[c][d] = 1;
+                  cellArrayMapnew[c][d] = "X";
+                }//end if
+              else if(numberArrayMap[c][d] == 0){
+                  nextgenMap[c][d] = 1;
+                  cellArrayMapnew[c][d] = "X";
+    }//end else if
+  }//end else if
+
+  //if there's more than 4 neighbor,overpopulation, cell die
+              else if(neighborsMap >= 4){
+                 nextgenMap[c][d] = 0;
+                 cellArrayMapnew[c][d] = "-";
+          }//end else if
+
+   }//end for
+}//end for
+    //cout << nextgenMap[c][d];
+    for(int i = 0; i < row; ++i){
+      for(int j = 0; j < column; ++j){
+        if (nextgenMap[i][j] == 1){
+          cout << "X";
+        }else{
+          cout << "-";
+        }
+      }
+      cout << endl;
+    }
+
+      }
+
        else if (mode=="doughnut")
        {
         cout << "doughnutmode" << endl;
-        //code for doughnut mode, get 1st generation grid then calculate
-        //add in new cells and remove cells in certin spots in array
-      //then update 1st generation cellArrayMap reference to 2nd generation cellArrayMap, then do 3rd generation using 2nd gen array
+
        }
        else if (mode=="mirror")
        {
         cout << "mirror mode" << endl;
-        //code for mirror mode, get 1st generation grid then calculate
-        //add in new cells and remove cells in certin spots in array
-      //then update 1st generation cellArrayMap reference to 2nd generation cellArrayMap, then do 3rd generation using 2nd gen array
+
        }
        else
        {
@@ -131,7 +201,7 @@ int main (){
            cin >> outputfile;
            OutputFile.open(outputfile);
          }
-    }
+
     InputFile.close();
 
     //situation for random assignment
@@ -169,23 +239,17 @@ int main (){
     if (mode=="classic")
     {
      cout << "classic mode" << endl;
-     //code for classic mode, get 1st generation grid then calculate
-     //add in new cells and remove cells in certin spots in array
-     //then update 1st generation CellArrayRandom reference to 2nd generation CellArrayRandom, then do 3rd generation using 2nd gen array
+
     }
     else if (mode=="doughnut")
     {
      cout << "doughnutmode" << endl;
-     //code for doughnut mode, get 1st generation grid then calculate
-     //add in new cells and remove cells in certin spots in array
-   //then update 1st generation CellArrayRandom reference to 2nd generation CellArrayRandom, then do 3rd generation using 2nd gen array
+
     }
     else if (mode=="mirror")
     {
      cout << "mirror mode" << endl;
-     //code for mirror mode, get 1st generation grid then calculate
-     //add in new cells and remove cells in certin spots in array
-   //then update 1st generation CellArrayRandom reference to 2nd generation CellArrayRandom, then do 3rd generation using 2nd gen array
+
     }
     else
     {
@@ -214,4 +278,5 @@ int main (){
     }
   }
   return 0;
+}
 }
