@@ -105,6 +105,7 @@ int main (){
          int nextgenMap[Row][Column];
 
        for (int k=0; k<1000; ++k){
+         cout << "Generation # " << k << endl;
          cout << endl;
          for(int c = 0; c < Row; ++c){
            for(int d = 0; d < Column; ++d){
@@ -368,6 +369,7 @@ for(int i = 0; i < row; ++i){
      int nextgenRandom[Rowrandom][Columnrandom];
 
     for (int k=0; k<1000; ++k){
+      cout << "Generation # " << k << endl;
        cout << endl;
      for(int e=0; e<Rowrandom; ++e){
        for(int c=0; c<Columnrandom; ++c){
