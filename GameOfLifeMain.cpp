@@ -104,7 +104,8 @@ int main (){
          int numberArrayMap[Row][Column];
          int nextgenMap[Row][Column];
 
-
+       for (int k=0; k<1000; ++k){
+         cout << endl;
          for(int c = 0; c < Row; ++c){
            for(int d = 0; d < Column; ++d){
              if (cellArrayMap[c][d] == "X"){
@@ -170,6 +171,7 @@ int main (){
     }
 
       }
+    }
 //DONUT mode
        else if (mode=="doughnut")
        {
@@ -362,6 +364,8 @@ for(int i = 0; i < row; ++i){
      int numberArrayRandom[Rowrandom][Columnrandom];
      int nextgenRandom[Rowrandom][Columnrandom];
 
+    for (int k=0; k<1000; ++k){
+       cout << endl;
      for(int e=0; e<Rowrandom; ++e){
        for(int c=0; c<Columnrandom; ++c){
          if(CellArrayRandom[i][j] == "X"){
@@ -424,6 +428,7 @@ for(int i = 0; i < row; ++i){
      }//end for
 
     }
+  }
     else if (mode=="doughnut")
     {
      cout << "doughnutmode" << endl;
@@ -460,6 +465,7 @@ for(int i = 0; i < row; ++i){
       OutputFile.open(outputfile);
     }
   }
+
   return 0;
 
 }
