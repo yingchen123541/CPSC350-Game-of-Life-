@@ -184,6 +184,9 @@ int main (){
         int protectedr;
         int protectedc;
 
+      for(int i = 0; i <= 100; i++){
+        cout << endl;
+        cout << "Generation # " << i << endl;
         for(int c = 0; c < Row; ++c){
           for(int d = 0; d < Column; ++d){
             if (cellArrayMap[c][d] == "X"){
@@ -234,7 +237,7 @@ int main (){
 
           for(int c = 0; c < Row; ++c){
             for(int d = 0; d < Column; ++d){
-              cout << "n: " << neighbors << endl;
+            //  cout << "n: " << neighbors << endl;
               if(neighbors < 2){
                  nextnumberArray[c][d] = 0;
                  nextgenArray[c][d] = "-";
@@ -286,7 +289,7 @@ for(int i = 0; i < row; ++i){
   }
   cout << endl;
 }
-
+}
 
 
 
