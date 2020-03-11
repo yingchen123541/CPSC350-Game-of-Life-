@@ -24,6 +24,7 @@ int main (){
   string choice;
   string outputfile;
   int neighborsMap=0;
+  int neighborsRandom=0;
 
 
 
@@ -201,7 +202,7 @@ int main (){
            cin >> outputfile;
            OutputFile.open(outputfile);
          }
-
+}
     InputFile.close();
 
     //situation for random assignment
@@ -215,9 +216,12 @@ int main (){
     cout << "enter a decimal value between 0 and 1 representing the initial population density of the world" << endl;
     cin >> density;
     //create an array to hold all cells
+    int i=0;
+    int j=0;
     string CellArrayRandom[row][column];
-    for(int j = 0; j < row; ++j){
-      for(int i=0; i < column; ++i)
+    string cellArrayRandomnew[i][j];
+    for(j = 0; j < row; ++j){
+      for(i=0; i < column; ++i)
       {
        randomNumber = ((double)rand()/(double)RAND_MAX);
        //generate cells according to density to occupy blocks in array
@@ -239,6 +243,73 @@ int main (){
     if (mode=="classic")
     {
      cout << "classic mode" << endl;
+     int Rowrandom = i;
+     int Columnrandom = j;
+
+     // converting strings into values of 1 and 0
+     int numberArrayRandom[Rowrandom][Columnrandom];
+     int nextgenRandom[Rowrandom][Columnrandom];
+
+     for(int e=0; e<Rowrandom; ++e){
+       for(int c=0; c<Columnrandom; ++c){
+         if(CellArrayRandom[i][j] == "X"){
+           numberArrayRandom[i][j] = 1;
+         }//end if
+         else if(CellArrayRandom[i][j] == "-"){
+           numberArrayRandom[i][j] = 0;
+         }//end else if
+       }//end for
+     }//end for
+
+     for(int e=0; e<Rowrandom; ++e){
+       for(int c=0; c<Columnrandom; ++c){
+         neighborsRandom = numberArrayRandom[Rowrandom-1][Columnrandom-1] + numberArrayRandom[Rowrandom-1][Columnrandom] + numberArrayRandom[Rowrandom-1][Columnrandom+1] + numberArrayRandom[Rowrandom][Columnrandom+1] + numberArrayRandom[Rowrandom+1][Columnrandom-1] + numberArrayRandom[Rowrandom+1][Columnrandom]
+         + numberArrayRandom[Rowrandom+1][Columnrandom-1] + numberArrayRandom[Rowrandom][Columnrandom-1];
+         //if there's only 1 cell, empty for the next generation
+         if(neighborsRandom <=1){
+           nextgenRandom[i][j] = 0;
+           cellArrayRandomnew[i][j] = "-";
+         }//end if
+         //if there's 2 neighbor, next generation cells live on, if empty, still empty
+         else if(neighborsRandom == 2){
+           if (numberArrayRandom[i][j] == 1){
+              nextgenRandom[i][j] = 1;
+              cellArrayRandomnew[i][j] = "X";
+           }//end if
+           else if(numberArrayRandom[i][j] == 0){
+             nextgenRandom[i][j] = 0;
+             cellArrayRandomnew[i][j] = "-";
+           }//else if
+         }//end else if
+//if there's 3 neighbor, next generation cells live on, if empty, generate a new cell
+        else if(neighborsRandom == 3){
+          if (numberArrayRandom[i][j] == 1){
+             nextgenRandom[i][j] = 1;
+             cellArrayRandomnew[i][j] = "X";
+          }//end if
+          else if(numberArrayRandom[i][j] == 0){
+            nextgenRandom[i][j] = 1;
+            cellArrayRandomnew[i][j] = "x";
+          }//else if
+        }//end else if
+         else if(neighborsRandom >= 4){
+           nextgenRandom[i][j] = 0;
+           cellArrayRandomnew[i][j] = "-";
+         }//end else if
+       }//end for
+     }//end for
+
+     for(int g=0; g<row; ++g){
+       for(int h=0; h<column; ++h){
+         if(nextgenRandom[g][h] ==1){
+           cout << "X";
+         }//end if
+         else{
+           cout << "-";
+         }//end else
+       }//end for
+       cout << endl;
+     }//end for
 
     }
     else if (mode=="doughnut")
@@ -278,5 +349,4 @@ int main (){
     }
   }
   return 0;
-}
 }
