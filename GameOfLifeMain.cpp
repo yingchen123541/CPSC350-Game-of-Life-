@@ -92,6 +92,7 @@ int main (){
 //choose mode then calculate after getting 1st generation cell array (need to ask for mode in random assignent too)
      cout << "what kind of boundary mode do you want to run in? choose among classic mode, doughnut mode, and mirror Mode" << endl;
      cin >> mode;
+     // classic mode
      if (mode=="classic")
      {
       cout << "classic mode" << endl;
@@ -168,25 +169,136 @@ int main (){
     }
 
       }
-
+//DONUT mode
        else if (mode=="doughnut")
        {
-        cout << "doughnutmode" << endl;
+        cout << "doughnutmode: " << endl;
+        int neighbors = 0;
+        int Row=rowMap;
+        int Column= z;
+        string nextgenArray[Row][Column];
+        int nextnumberArray[Row][Column];
+        int numberArray[Row][Column];
+        // in case row - 1 = -1
+        int protectedr;
+        int protectedc;
 
-       }
-       else if (mode=="mirror")
-       {
-        cout << "mirror mode" << endl;
+        for(int c = 0; c < Row; ++c){
+          for(int d = 0; d < Column; ++d){
+            if (cellArrayMap[c][d] == "X"){
+              numberArray[c][d] = 1;
+           } else if(cellArrayMap[c][d] == "-"){
+             numberArray[c][d] = 0;
+           }
+          }
+        }
 
+
+        if (Row-1 == -1) {
+            protectedr = Row-1;
+          } else {
+            protectedr = Row-1;
+          }
+          if (Column-1 == -1) {
+            protectedc = Column-1;
+          } else {
+            protectedc = Column-1;
+          }
+
+          if(cellArrayMap[Row][(Column + 1) % column] == "X"){
+            neighbors++;
+          }
+          if(cellArrayMap[(Row+1)%row][Column] == "X"){
+            neighbors++;
+          }
+          if(cellArrayMap[(Row+1)%row][(Column+ 1) % column] == "X"){
+            neighbors++;
+          }
+          if(cellArrayMap[(Row+1)%row][protectedc] == "X"){
+            neighbors++;
+          }
+          if(cellArrayMap[Row][protectedc] == "X"){
+            neighbors++;
+          }
+          if(cellArrayMap[protectedr][protectedc] == "X"){
+            neighbors++;
+          }
+          if(cellArrayMap[protectedr][(Column+ 1) % column] == "X"){
+            neighbors++;
+          }
+          if(cellArrayMap[protectedr][Column] == "X"){
+            neighbors++;
+          }
+
+
+          for(int c = 0; c < Row; ++c){
+            for(int d = 0; d < Column; ++d){
+              cout << "n: " << neighbors << endl;
+              if(neighbors < 2){
+                 nextnumberArray[c][d] = 0;
+                 nextgenArray[c][d] = "-";
+               }//end if
+
+     ////if there's 2 neighbor, next generation cell lives on, if empty, still empty
+             else if(neighbors == 2){
+               if(numberArray[c][d] == 1){
+                 nextnumberArray[c][d] = 1;
+                 nextgenArray[c][d] = "X";
+               }//end if
+               else if(numberArray[c][d] == 0){
+                 nextnumberArray[c][d] = 0;
+                 nextgenArray[c][d] = "-";
+               }//end else if
+             }//end else if
+
+     //if there's 3 neighbor, next generation cell lives on, if empty, generate a new cell
+             else if(neighbors == 3){
+               if(numberArray[c][d] == 1){
+                   nextnumberArray[c][d] = 1;
+                   nextgenArray[c][d] = "X";
+                 }//end if
+               }else if(numberArray[c][d] == 0){
+                   nextnumberArray[c][d] = 1;
+                   nextgenArray[c][d] = "X";
+                 }//end else if
+
+     //if there's more than 4 neighbor,overpopulation, cell die
+               else if(neighbors >= 4){
+                  nextnumberArray[c][d] = 0;
+                  nextgenArray[c][d] = "-";
+                }
+
+                // else{
+                //   nextnumberArray[c][d] = 0;
+                //   nextgenArray[c][d] = "-";
+                // }
+}
+}
+
+for(int i = 0; i < row; ++i){
+  for(int j = 0; j < column; ++j){
+    if (nextnumberArray[i][j] == 1){
+      cout << "X";
+    }else{
+      cout << "-";
+    }
+  }
+  cout << endl;
+}
+
+
+
+
+}  else if (mode=="mirror"){
+              cout << "mirror mode" << endl;
+        }
+        else {
+          cerr << "not a valid mode" << endl;
+          exit(1);
        }
-       else
-       {
-         cerr << "not a valid mode" << endl;
-         exit(1);
-       }
-       //pause between generation or output to a file
-         cout << "enter yes for pause between generations, enter no for output to a file" << endl;
-         cin >> choice;
+       // //pause between generation or output to a file
+        cout << "enter yes for pause between generations, enter no for output to a file" << endl;
+        cin >> choice;
 
          if (choice=="yes")
          {
@@ -201,6 +313,7 @@ int main (){
            cin >> outputfile;
            OutputFile.open(outputfile);
          }
+
 
     InputFile.close();
 
@@ -278,5 +391,6 @@ int main (){
     }
   }
   return 0;
+
 }
 }
