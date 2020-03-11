@@ -1,5 +1,5 @@
 
-//look at NaiveList.cpp and header file, on how to define method and void then can call it in main
+////look at NaiveList.cpp and header file, on how to define method and void then can call it in main
 //if main program works, can keep them in main, just do mode or at least sth in different classes
 ///have 2 versions of the grid. One is for the current generation, and the other is for computing the next generation (based on the current generation) without side effects.
 #include <iostream>
