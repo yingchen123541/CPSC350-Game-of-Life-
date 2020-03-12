@@ -95,101 +95,180 @@ int main (){
      // classic mode
      if (mode=="classic")
      {
-      cout << "classic mode" << endl;
-      cout << "enter yes for pause between generation, no for output to a file" << endl;
-      cin >> choice;
-      if(choice=="yes")
-      {
-        cout << "pause between generation" << endl;
-      }
-      else if (choice=="no")
-      {
-        ofstream OutputFile;
-        cout << "enter an output file" << endl;
-        cin >> outputfile;
-        OutputFile.open(outputfile);
-        cout << "output to a file..." << endl;
+        cout << "classic mode: " << endl;
 
-         int Row=rowMap;
-         int Column= z;
+        cout << "enter yes for pause between generations, enter no for output to a file" << endl;
+        cin >> choice;
+         if (choice=="yes")
+         {
+           //pause between generations
+           cout << "pausing between generations.." << endl;
+           int Row=rowMap;
+           int Column= z;
 
-         // converting strings into values of 1 and 0
-         int numberArrayMap[Row][Column];
-         int nextgenMap[Row][Column];
+           // converting strings into values of 1 and 0
+           int numberArrayMap[Row][Column];
+           int nextgenMap[Row][Column];
 
-       for (int k=0; k<1000; ++k){
-         OutputFile << "Generation # " << k << endl;
-         OutputFile << endl;
-         for(int c = 0; c < Row; ++c){
-           for(int d = 0; d < Column; ++d){
-             if (cellArrayMap[c][d] == "X"){
-               numberArrayMap[c][d] = 1;
-            } else if(cellArrayMap[c][d] == "-"){
-              numberArrayMap[c][d] = 0;
-            }
+         for (int k=0; k<1000; ++k){
+             cout << "Generation # " << k << endl;
+             cout << endl;
+           for(int c = 0; c < Row; ++c){
+             for(int d = 0; d < Column; ++d){
+               if (cellArrayMap[c][d] == "X"){
+                 numberArrayMap[c][d] = 1;
+              } else if(cellArrayMap[c][d] == "-"){
+                numberArrayMap[c][d] = 0;
+              }
+             }
            }
-         }
 
-         for(int c = 0; c < Row; ++c){
-           for(int d = 0; d < Column; ++d){
-             neighborsMap = numberArrayMap[Row-1][Column-1] + numberArrayMap[Row-1][Column] + numberArrayMap[Row-1][Column+1] + numberArrayMap[Row][Column+1] + numberArrayMap[Row+1][Column-1] + numberArrayMap[Row+1][Column]
-             + numberArrayMap[Row+1][Column-1] + numberArrayMap[Row][Column-1];
-//if there's only 1 neighbor, next generation in this space will be empty
-             if(neighborsMap <= 1){
-                nextgenMap[c][d] = 0;
-                cellArrayMapnew[c][d] = "-";
-              }//end if
+           for(int c = 0; c < Row; ++c){
+             for(int d = 0; d < Column; ++d){
+               neighborsMap = numberArrayMap[Row-1][Column-1] + numberArrayMap[Row-1][Column] + numberArrayMap[Row-1][Column+1] + numberArrayMap[Row][Column+1] + numberArrayMap[Row+1][Column-1] + numberArrayMap[Row+1][Column]
+               + numberArrayMap[Row+1][Column-1] + numberArrayMap[Row][Column-1];
+  //if there's only 1 neighbor, next generation in this space will be empty
+               if(neighborsMap <= 1){
+                  nextgenMap[c][d] = 0;
+                  cellArrayMapnew[c][d] = "-";
+                }//end if
 
-   ////if there's 2 neighbor, next generation cell lives on, if empty, still empty
-            else if(neighborsMap == 2){
-              if(numberArrayMap[c][d] == 1){
-                nextgenMap[c][d] = 1;
-                cellArrayMapnew[c][d] = "X";
-              }//end if
-              else if(numberArrayMap[c][d] == 0){
-                nextgenMap[c][d] = 0;
-                cellArrayMapnew[c][d] = "-";
-              }//end else if
-  }//end else if
-
-  //if there's 3 neighbor, next generation cell lives on, if empty, generate a new cell
-            else if(neighborsMap == 3){
-              if(numberArrayMap[c][d] == 1){
+     ////if there's 2 neighbor, next generation cell lives on, if empty, still empty
+              else if(neighborsMap == 2){
+                if(numberArrayMap[c][d] == 1){
                   nextgenMap[c][d] = 1;
                   cellArrayMapnew[c][d] = "X";
                 }//end if
-              else if(numberArrayMap[c][d] == 0){
+                else if(numberArrayMap[c][d] == 0){
+                  nextgenMap[c][d] = 0;
+                  cellArrayMapnew[c][d] = "-";
+                }//end else if
+              }//end else if
+
+    //if there's 3 neighbor, next generation cell lives on, if empty, generate a new cell
+              else if(neighborsMap == 3){
+                if(numberArrayMap[c][d] == 1){
+                    nextgenMap[c][d] = 1;
+                    cellArrayMapnew[c][d] = "X";
+                  }//end if
+                else if(numberArrayMap[c][d] == 0){
+                    nextgenMap[c][d] = 1;
+                    cellArrayMapnew[c][d] = "X";
+                  }           //end else if
+                }//end else if
+
+    //if there's more than 4 neighbor,overpopulation, cell die
+                else if(neighborsMap >= 4){
+                   nextgenMap[c][d] = 0;
+                   cellArrayMapnew[c][d] = "-";
+                 }//end else if
+
+               }//end for
+             }//end for
+      //cout << nextgenMap[c][d];
+      for(int i = 0; i < row; ++i){
+        for(int j = 0; j < column; ++j){
+          if (nextgenMap[i][j] == 1){
+              cout << "X";
+          }else{
+              cout << "-";
+          }
+        }
+          cout << endl;
+      }
+
+        }
+         }
+         else if (choice=="no")
+         {
+           //output everything to a file
+           ofstream OutputFile;
+           cout << "enter an output file name" << endl;
+           cin >> outputfile;
+           OutputFile.open(outputfile);
+           cout << "outputting to file...." << endl;
+
+           int Row=rowMap;
+           int Column= z;
+
+           // converting strings into values of 1 and 0
+           int numberArrayMap[Row][Column];
+           int nextgenMap[Row][Column];
+
+         for (int k=0; k<1000; ++k){
+             OutputFile << "Generation # " << k << endl;
+             OutputFile << endl;
+           for(int c = 0; c < Row; ++c){
+             for(int d = 0; d < Column; ++d){
+               if (cellArrayMap[c][d] == "X"){
+                 numberArrayMap[c][d] = 1;
+              } else if(cellArrayMap[c][d] == "-"){
+                numberArrayMap[c][d] = 0;
+              }
+             }
+           }
+
+           for(int c = 0; c < Row; ++c){
+             for(int d = 0; d < Column; ++d){
+               neighborsMap = numberArrayMap[Row-1][Column-1] + numberArrayMap[Row-1][Column] + numberArrayMap[Row-1][Column+1] + numberArrayMap[Row][Column+1] + numberArrayMap[Row+1][Column-1] + numberArrayMap[Row+1][Column]
+               + numberArrayMap[Row+1][Column-1] + numberArrayMap[Row][Column-1];
+  //if there's only 1 neighbor, next generation in this space will be empty
+               if(neighborsMap <= 1){
+                  nextgenMap[c][d] = 0;
+                  cellArrayMapnew[c][d] = "-";
+                }//end if
+
+     ////if there's 2 neighbor, next generation cell lives on, if empty, still empty
+              else if(neighborsMap == 2){
+                if(numberArrayMap[c][d] == 1){
                   nextgenMap[c][d] = 1;
                   cellArrayMapnew[c][d] = "X";
+                }//end if
+                else if(numberArrayMap[c][d] == 0){
+                  nextgenMap[c][d] = 0;
+                  cellArrayMapnew[c][d] = "-";
+                }//end else if
     }//end else if
-  }//end else if
 
-  //if there's more than 4 neighbor,overpopulation, cell die
-              else if(neighborsMap >= 4){
-                 nextgenMap[c][d] = 0;
-                 cellArrayMapnew[c][d] = "-";
-          }//end else if
+    //if there's 3 neighbor, next generation cell lives on, if empty, generate a new cell
+              else if(neighborsMap == 3){
+                if(numberArrayMap[c][d] == 1){
+                    nextgenMap[c][d] = 1;
+                    cellArrayMapnew[c][d] = "X";
+                  }//end if
+                else if(numberArrayMap[c][d] == 0){
+                    nextgenMap[c][d] = 1;
+                    cellArrayMapnew[c][d] = "X";
+      }//end else if
+    }//end else if
 
-   }//end for
-}//end for
-    //cout << nextgenMap[c][d];
-    for(int i = 0; i < row; ++i){
-      for(int j = 0; j < column; ++j){
-        if (nextgenMap[i][j] == 1){
-          OutputFile << "X";
-        }else{
-          OutputFile << "-";
+    //if there's more than 4 neighbor,overpopulation, cell die
+                else if(neighborsMap >= 4){
+                   nextgenMap[c][d] = 0;
+                   cellArrayMapnew[c][d] = "-";
+            }//end else if
+
+     }//end for
+  }//end for
+      //cout << nextgenMap[c][d];
+      for(int i = 0; i < row; ++i){
+        for(int j = 0; j < column; ++j){
+          if (nextgenMap[i][j] == 1){
+              OutputFile << "X";
+          }else{
+              OutputFile << "-";
+          }
+        }
+          OutputFile << endl;
+      }
+
         }
       }
-      OutputFile << endl;
-    }
+      InputFile.close();
+    }// end of classic
 
-      }
-    }
-    InputFile.close();
-  }
 //DONUT mode
-       else if (mode=="doughnut")
+else if (mode=="doughnut")
        {
         cout << "doughnutmode: " << endl;
         int neighbors = 0;
@@ -466,7 +545,6 @@ for(int i = 0; i < row; ++i){
        }
        // //pause between generation or output to a file
 
-
     //situation for random assignment
   }else if (answer=="no"){
     cout << "random assignment" << endl;
@@ -504,6 +582,97 @@ for(int i = 0; i < row; ++i){
 
     if (mode=="classic")
     {
+      cout << "enter yes for pause between generations, enter no for output to a file" << endl;
+      cin >> choice;
+
+       if (choice=="yes")
+       {
+         //pause between generations
+         cout << "pausing between generations... " << endl;
+         cout << "classic mode" << endl;
+         int Rowrandom = i;
+         int Columnrandom = j;
+
+         // converting strings into values of 1 and 0
+         int numberArrayRandom[Rowrandom][Columnrandom];
+         int nextgenRandom[Rowrandom][Columnrandom];
+
+        for (int k=0; k<1000; ++k){
+          cout << "Generation # " << k << endl;
+           cout << endl;
+         for(int e=0; e<Rowrandom; ++e){
+           for(int c=0; c<Columnrandom; ++c){
+             if(CellArrayRandom[i][j] == "X"){
+               numberArrayRandom[i][j] = 1;
+             }//end if
+             else if(CellArrayRandom[i][j] == "-"){
+               numberArrayRandom[i][j] = 0;
+             }//end else if
+           }//end for
+         }//end for
+
+         for(int e=0; e<Rowrandom; ++e){
+           for(int c=0; c<Columnrandom; ++c){
+             neighborsRandom = numberArrayRandom[Rowrandom-1][Columnrandom-1] + numberArrayRandom[Rowrandom-1][Columnrandom] + numberArrayRandom[Rowrandom-1][Columnrandom+1] + numberArrayRandom[Rowrandom][Columnrandom+1] + numberArrayRandom[Rowrandom+1][Columnrandom-1] + numberArrayRandom[Rowrandom+1][Columnrandom]
+             + numberArrayRandom[Rowrandom+1][Columnrandom-1] + numberArrayRandom[Rowrandom][Columnrandom-1];
+             //if there's only 1 cell, empty for the next generation
+             if(neighborsRandom <=1){
+               nextgenRandom[i][j] = 0;
+               cellArrayRandomnew[i][j] = "-";
+             }//end if
+             //if there's 2 neighbor, next generation cells live on, if empty, still empty
+             else if(neighborsRandom == 2){
+               if (numberArrayRandom[i][j] == 1){
+                  nextgenRandom[i][j] = 1;
+                  cellArrayRandomnew[i][j] = "X";
+               }//end if
+               else if(numberArrayRandom[i][j] == 0){
+                 nextgenRandom[i][j] = 0;
+                 cellArrayRandomnew[i][j] = "-";
+               }//else if
+             }//end else if
+    //if there's 3 neighbor, next generation cells live on, if empty, generate a new cell
+            else if(neighborsRandom == 3){
+              if (numberArrayRandom[i][j] == 1){
+                 nextgenRandom[i][j] = 1;
+                 cellArrayRandomnew[i][j] = "X";
+              }//end if
+              else if(numberArrayRandom[i][j] == 0){
+                nextgenRandom[i][j] = 1;
+                cellArrayRandomnew[i][j] = "x";
+              }//else if
+            }//end else if
+             else if(neighborsRandom >= 4){
+               nextgenRandom[i][j] = 0;
+               cellArrayRandomnew[i][j] = "-";
+             }//end else if
+           }//end for
+         }//end for
+
+         for(int g=0; g<row; ++g){
+           for(int h=0; h<column; ++h){
+             if(nextgenRandom[g][h] ==1){
+               cout << "X";
+             }//end if
+             else{
+               cout << "-";
+             }//end else
+           }//end for
+           cout << endl;
+         }//end for
+
+        }
+
+       }
+       else if (choice=="no")
+       {
+         //output everything to a file
+         ofstream OutputFile;
+         cout << "enter an output file name" << endl;
+         cin >> outputfile;
+         OutputFile.open(outputfile);
+         cout << "outputting to file...." << endl;
+
      cout << "classic mode" << endl;
      int Rowrandom = i;
      int Columnrandom = j;
@@ -512,9 +681,9 @@ for(int i = 0; i < row; ++i){
      int numberArrayRandom[Rowrandom][Columnrandom];
      int nextgenRandom[Rowrandom][Columnrandom];
 
-    for (int k=1; k<=1000; ++k){
-      //cout << "Generation # " << k << endl;
-       cout << endl;
+    for (int k=0; k<1000; ++k){
+      OutputFile << "Generation # " << k << endl;
+       OutputFile << endl;
      for(int e=0; e<Rowrandom; ++e){
        for(int c=0; c<Columnrandom; ++c){
          if(CellArrayRandom[i][j] == "X"){
@@ -567,17 +736,20 @@ for(int i = 0; i < row; ++i){
      for(int g=0; g<row; ++g){
        for(int h=0; h<column; ++h){
          if(nextgenRandom[g][h] ==1){
-           cout << "X";
+           OutputFile << "X";
          }//end if
          else{
-           cout << "-";
+           OutputFile << "-";
          }//end else
        }//end for
-       cout << endl;
+       OutputFile << endl;
      }//end for
       cout << "Generation # " << k << endl;
     }
   }
+
+}// end of class mode loop
+
   //donut mode under random assignment
     else if (mode=="doughnut")
     {
@@ -845,8 +1017,25 @@ cout << endl;
     }
 
     //pause between generations or output to a file
-
-  }
+  //   cout << "want a brief pause between generations?" << endl;
+  //   cout << "want to press “Enter” to display the next generation? or want to output everything to a file?" << endl;
+  //   cout << "enter yes for pause between generations, enter no for output to a file" << endl;
+  //   cin >> choice;
+  //
+  //   if (choice=="yes")
+  //   {
+  //     //pause between generations
+  //     cout << "pause between generations" << endl;
+  //   }
+  //   else if (choice=="no")
+  //   {
+  //     //output everything to a file
+  //     ofstream OutputFile;
+  //     cout << "enter an output file name" << endl;
+  //     cin >> outputfile;
+//     OutputFile.open(outputfile);
+//   }
+ }
 
   return 0;
 
