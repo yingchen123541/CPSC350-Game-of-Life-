@@ -96,6 +96,20 @@ int main (){
      if (mode=="classic")
      {
       cout << "classic mode" << endl;
+      cout << "enter yes for pause between generation, no for output to a file" << endl;
+      cin >> choice;
+      if(choice=="yes")
+      {
+        cout << "pause between generation" << endl;
+      }
+      else if (choice=="no")
+      {
+        ofstream OutputFile;
+        cout << "enter an output file" << endl;
+        cin >> outputfile;
+        OutputFile.open(outputfile);
+        cout << "output to a file..." << endl;
+
          int Row=rowMap;
          int Column= z;
 
@@ -104,8 +118,8 @@ int main (){
          int nextgenMap[Row][Column];
 
        for (int k=0; k<1000; ++k){
-         cout << "Generation # " << k << endl;
-         cout << endl;
+         OutputFile << "Generation # " << k << endl;
+         OutputFile << endl;
          for(int c = 0; c < Row; ++c){
            for(int d = 0; d < Column; ++d){
              if (cellArrayMap[c][d] == "X"){
@@ -162,16 +176,18 @@ int main (){
     for(int i = 0; i < row; ++i){
       for(int j = 0; j < column; ++j){
         if (nextgenMap[i][j] == 1){
-          cout << "X";
+          OutputFile << "X";
         }else{
-          cout << "-";
+          OutputFile << "-";
         }
       }
-      cout << endl;
+      OutputFile << endl;
     }
 
       }
     }
+    InputFile.close();
+  }
 //DONUT mode
        else if (mode=="doughnut")
        {
@@ -496,8 +512,8 @@ for(int i = 0; i < row; ++i){
      int numberArrayRandom[Rowrandom][Columnrandom];
      int nextgenRandom[Rowrandom][Columnrandom];
 
-    for (int k=0; k<1000; ++k){
-      cout << "Generation # " << k << endl;
+    for (int k=1; k<=1000; ++k){
+      //cout << "Generation # " << k << endl;
        cout << endl;
      for(int e=0; e<Rowrandom; ++e){
        for(int c=0; c<Columnrandom; ++c){
@@ -559,7 +575,7 @@ for(int i = 0; i < row; ++i){
        }//end for
        cout << endl;
      }//end for
-
+      cout << "Generation # " << k << endl;
     }
   }
   //donut mode under random assignment
@@ -684,6 +700,21 @@ cout << endl;
     else if (mode=="mirror")
     {
      cout << "mirror mode" << endl;
+     cout << "enter yes for pause between generations, enter no for outputing to a file" << endl;
+     cin >> choice;
+     if (choice=="yes")
+     {
+       cout << "pause between generations" << endl;
+     }
+     else if (choice=="no")
+     {
+       //output to a file
+       ofstream OutputFile;
+       cout << "enter an output file name" << endl;
+       cin >> outputfile;
+       OutputFile.open(outputfile);
+       cout << "outputting to file..." << endl;
+
      int neighborsrandomMirror = 0;
      int RowrandomMirror=i;
      int ColumnrandomMirror=j;
@@ -697,8 +728,8 @@ cout << endl;
      int CminusRandom;
      //print out 100 generations
      for(int k = 0; k <= 100; k++){
-       cout << endl;
-       cout << "Generation # " << k << endl;
+       OutputFile << endl;
+       OutputFile << "Generation # " << k << endl;
        for(int c = 0; c < RowrandomMirror; ++c){
          for(int d = 0; d < ColumnrandomMirror; ++d){
            //convert X and - to 1 and 0
@@ -798,13 +829,14 @@ cout << endl;
                   for(int i = 0; i < row; ++i){
                     for(int j = 0; j < column; ++j){
                         if (nextnumberArrayRandomMirror[i][j] == 1){
-                            cout << "X";
+                            OutputFile << "X";
                       }else{
-                            cout << "-";
+                            OutputFile << "-";
                           }
                         }
-                        cout << endl;
+                        OutputFile << endl;
                       }
+                    }
     }//end print 100 times for
   }else
     {
@@ -813,24 +845,7 @@ cout << endl;
     }
 
     //pause between generations or output to a file
-    cout << "want a brief pause between generations?" << endl;
-    cout << "want to press “Enter” to display the next generation? or want to output everything to a file?" << endl;
-    cout << "enter yes for pause between generations, enter no for output to a file" << endl;
-    cin >> choice;
 
-    if (choice=="yes")
-    {
-      //pause between generations
-      cout << "pause between generations" << endl;
-    }
-    else if (choice=="no")
-    {
-      //output everything to a file
-      ofstream OutputFile;
-      cout << "enter an output file name" << endl;
-      cin >> outputfile;
-      OutputFile.open(outputfile);
-    }
   }
 
   return 0;
