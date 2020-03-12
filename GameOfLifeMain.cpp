@@ -754,6 +754,23 @@ for(int i = 0; i < row; ++i){
     else if (mode=="doughnut")
     {
      cout << "doughnutmode" << endl;
+     cout << "enter yes for pause between generations, enter no for outputing to a file" << endl;
+     cin >> choice;
+     if (choice=="yes")
+     {
+       cout << "pause between generations" << endl;
+     }
+     else if (choice=="no")
+     {
+       //output to a file
+       ofstream OutputFile;
+       cout << "enter an output file name" << endl;
+       cin >> outputfile;
+       OutputFile.open(outputfile);
+       cout << "outputting to file..." << endl;
+
+
+
      int neighborsrandomDoughnut = 0;
      int RowrandomDoughnut=i;
      int ColumnrandomDoughnut=j;
@@ -765,8 +782,8 @@ for(int i = 0; i < row; ++i){
      int protectedcRandomDoughnut;
 
    for(int k = 0; k <= 100; k++){
-     cout << endl;
-     cout << "Generation # " << k << endl;
+     OutputFile << endl;
+     OutputFile << "Generation # " << k << endl;
      for(int c = 0; c < RowrandomDoughnut; ++c){
        for(int d = 0; d < ColumnrandomDoughnut; ++d){
          if (CellArrayRandom[c][d] == "X"){
@@ -857,17 +874,17 @@ for(int i = 0; i < row; ++i){
 for(int i = 0; i < row; ++i){
 for(int j = 0; j < column; ++j){
  if (nextnumberArrayRandomDoughnut[i][j] == 1){
-   cout << "X";
+   OutputFile << "X";
  }else{
-   cout << "-";
+   OutputFile << "-";
  }
 }
-cout << endl;
+OutputFile << endl;
 }
 }
 
 
-
+}
     }
     else if (mode=="mirror")
     {
