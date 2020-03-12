@@ -274,11 +274,6 @@ int main (){
                   nextnumberArray[c][d] = 0;
                   nextgenArray[c][d] = "-";
                 }
-
-                // else{
-                //   nextnumberArray[c][d] = 0;
-                //   nextgenArray[c][d] = "-";
-                // }
 }
 }
 
@@ -434,9 +429,123 @@ for(int i = 0; i < row; ++i){
 
     }
   }
+  //donut mode under random assignment
     else if (mode=="doughnut")
     {
      cout << "doughnutmode" << endl;
+     int neighborsrandomDoughnut = 0;
+     int RowrandomDoughnut=i;
+     int ColumnrandomDoughnut=j;
+     string nextgenRandomDoughnut[RowrandomDoughnut][ColumnrandomDoughnut];
+     int nextnumberArrayRandomDoughnut[RowrandomDoughnut][ColumnrandomDoughnut];
+     int numberArrayRandomDoughnut[RowrandomDoughnut][ColumnrandomDoughnut];
+     // in case row - 1 = -1
+     int protectedrRandomDoughnut;
+     int protectedcRandomDoughnut;
+
+   for(int k = 0; k <= 100; k++){
+     cout << endl;
+     cout << "Generation # " << k << endl;
+     for(int c = 0; c < RowrandomDoughnut; ++c){
+       for(int d = 0; d < ColumnrandomDoughnut; ++d){
+         if (CellArrayRandom[c][d] == "X"){
+           numberArrayRandomDoughnut[c][d] = 1;
+        } else if(CellArrayRandom[c][d] == "-"){
+          numberArrayRandomDoughnut[c][d] = 0;
+        }
+       }
+     }
+
+
+     if (RowrandomDoughnut-1 == -1) {
+         protectedrRandomDoughnut = RowrandomDoughnut-1;
+       } else {
+         protectedrRandomDoughnut = RowrandomDoughnut-1;
+       }
+       if (ColumnrandomDoughnut-1 == -1) {
+         protectedcRandomDoughnut = ColumnrandomDoughnut-1;
+       } else {
+         protectedcRandomDoughnut = ColumnrandomDoughnut-1;
+       }
+
+       if(CellArrayRandom[RowrandomDoughnut][(ColumnrandomDoughnut + 1) % ColumnrandomDoughnut] == "X"){
+         neighborsrandomDoughnut++;
+       }
+       if(CellArrayRandom[(RowrandomDoughnut+1)%RowrandomDoughnut][ColumnrandomDoughnut] == "X"){
+         neighborsrandomDoughnut++;
+       }
+       if(CellArrayRandom[(RowrandomDoughnut+1)%RowrandomDoughnut][(ColumnrandomDoughnut+ 1) % ColumnrandomDoughnut] == "X"){
+         neighborsrandomDoughnut++;
+       }
+       if(CellArrayRandom[(RowrandomDoughnut+1)%RowrandomDoughnut][protectedcRandomDoughnut] == "X"){
+         neighborsrandomDoughnut++;
+       }
+       if(CellArrayRandom[RowrandomDoughnut][protectedcRandomDoughnut] == "X"){
+         neighborsrandomDoughnut++;
+       }
+       if(CellArrayRandom[protectedrRandomDoughnut][protectedcRandomDoughnut] == "X"){
+         neighborsrandomDoughnut++;
+       }
+       if(CellArrayRandom[protectedrRandomDoughnut][(ColumnrandomDoughnut+ 1) % ColumnrandomDoughnut] == "X"){
+         neighborsrandomDoughnut++;
+       }
+       if(CellArrayRandom[protectedrRandomDoughnut][ColumnrandomDoughnut] == "X"){
+         neighborsrandomDoughnut++;
+       }
+
+
+       for(int c = 0; c < RowrandomDoughnut; ++c){
+         for(int d = 0; d < ColumnrandomDoughnut; ++d){
+         //  cout << "n: " << neighbors << endl;
+           if(neighborsrandomDoughnut < 2){
+              nextnumberArrayRandomDoughnut[c][d] = 0;
+              nextgenRandomDoughnut[c][d] = "-";
+            }//end if
+
+  ////if there's 2 neighbor, next generation cell lives on, if empty, still empty
+          else if(neighborsrandomDoughnut == 2){
+            if(numberArrayRandomDoughnut[c][d] == 1){
+              nextnumberArrayRandomDoughnut[c][d] = 1;
+              nextgenRandomDoughnut[c][d] = "X";
+            }//end if
+            else if(numberArrayRandomDoughnut[c][d] == 0){
+              nextnumberArrayRandomDoughnut[c][d] = 0;
+              nextgenRandomDoughnut[c][d] = "-";
+            }//end else if
+          }//end else if
+
+  //if there's 3 neighbor, next generation cell lives on, if empty, generate a new cell
+          else if(neighborsrandomDoughnut == 3){
+            if(numberArrayRandomDoughnut[c][d] == 1){
+                nextnumberArrayRandomDoughnut[c][d] = 1;
+                nextgenRandomDoughnut[c][d] = "X";
+              }//end if
+            }else if(numberArrayRandomDoughnut[c][d] == 0){
+                nextnumberArrayRandomDoughnut[c][d] = 1;
+                nextgenRandomDoughnut[c][d] = "X";
+              }//end else if
+
+  //if there's more than 4 neighbor,overpopulation, cell die
+            else if(neighborsrandomDoughnut >= 4){
+               nextnumberArrayRandomDoughnut[c][d] = 0;
+               nextgenRandomDoughnut[c][d] = "-";
+             }
+}
+}
+
+for(int i = 0; i < row; ++i){
+for(int j = 0; j < column; ++j){
+ if (nextnumberArrayRandomDoughnut[i][j] == 1){
+   cout << "X";
+ }else{
+   cout << "-";
+ }
+}
+cout << endl;
+}
+}
+
+
 
     }
     else if (mode=="mirror")
