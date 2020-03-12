@@ -308,6 +308,7 @@ for(int i = 0; i < row; ++i){
                  cout << "enter an output file name" << endl;
                  cin >> outputfile;
                  OutputFile.open(outputfile);
+                 cout << "outputting to file...." << endl;
 
               int neighbors = 0;
               int Row=rowMap;
