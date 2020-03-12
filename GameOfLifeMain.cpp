@@ -292,7 +292,136 @@ for(int i = 0; i < row; ++i){
 
 
 }  else if (mode=="mirror"){
-              cout << "mirror mode" << endl;
+              cout << "mirror mode: " << endl;
+
+              int neighbors = 0;
+              int Row=rowMap;
+              int Column= z;
+              string nextgenArray[Row][Column];
+              int nextnumberArray[Row][Column];
+              int numberArray[Row][Column];
+              // in case row - 1 = -1
+              int Rplus;
+              int Rminus;
+              int Cplus;
+              int Cminus;
+
+            for(int i = 0; i <= 100; i++){
+              cout << endl;
+              cout << "Generation # " << i << endl;
+              for(int c = 0; c < Row; ++c){
+                for(int d = 0; d < Column; ++d){
+                  if (cellArrayMap[c][d] == "X"){
+                    numberArray[c][d] = 1;
+                 } else if(cellArrayMap[c][d] == "-"){
+                   numberArray[c][d] = 0;
+                 }
+                }
+              }
+
+              if (Row+1 == row) {
+                  Rplus = row;
+                } else {
+                  Rplus = Row+1;
+                }
+                if (Row-1 == -1) {
+                    Rminus = Row;
+                  } else {
+                    Rminus = Row-1;
+                }if (Column+1 == column) {
+                    Cplus = column;
+                } else {
+                    Cplus = Column+1;
+                }if (Column-1 == -1) {
+                    Cminus = column;
+                  } else {
+                    Cminus = Column-1;
+                  }
+///////////////////////////////////////////////
+// r minus and c
+
+
+                if(cellArrayMap[Row][Cplus] == "X"){
+                  neighbors++;
+                }
+                if(cellArrayMap[Row][Cminus] == "X"){
+                  neighbors++;
+                }
+                if(cellArrayMap[Rminus][Cminus] == "X"){
+                  neighbors++;
+                }
+                if(cellArrayMap[Rminus][Cplus] == "X"){
+                  neighbors++;
+                }
+                if(cellArrayMap[Rminus][Column] == "X"){
+                  neighbors++;
+                }
+                if(cellArrayMap[Rplus][Cplus] == "X"){
+                  neighbors++;
+                }
+                if(cellArrayMap[Rplus][Cminus] == "X"){
+                  neighbors++;
+                }
+                if(cellArrayMap[Rplus][Column] == "X"){
+                  neighbors++;
+                }
+
+//////////////////////////////////
+
+                for(int c = 0; c < Row; ++c){
+                  for(int d = 0; d < Column; ++d){
+                  //  cout << "n: " << neighbors << endl;
+                    if(neighbors < 2){
+                       nextnumberArray[c][d] = 0;
+                       nextgenArray[c][d] = "-";
+                     }//end if
+
+           ////if there's 2 neighbor, next generation cell lives on, if empty, still empty
+                   else if(neighbors == 2){
+                     if(numberArray[c][d] == 1){
+                       nextnumberArray[c][d] = 1;
+                       nextgenArray[c][d] = "X";
+                     }//end if
+                     else if(numberArray[c][d] == 0){
+                       nextnumberArray[c][d] = 0;
+                       nextgenArray[c][d] = "-";
+                     }//end else if
+                   }//end else if
+
+           //if there's 3 neighbor, next generation cell lives on, if empty, generate a new cell
+                   else if(neighbors == 3){
+                     if(numberArray[c][d] == 1){
+                         nextnumberArray[c][d] = 1;
+                         nextgenArray[c][d] = "X";
+                       }//end if
+                     }else if(numberArray[c][d] == 0){
+                         nextnumberArray[c][d] = 1;
+                         nextgenArray[c][d] = "X";
+                       }//end else if
+
+           //if there's more than 4 neighbor,overpopulation, cell die
+                     else if(neighbors >= 4){
+                        nextnumberArray[c][d] = 0;
+                        nextgenArray[c][d] = "-";
+                      }
+      }
+      }
+
+      for(int i = 0; i < row; ++i){
+        for(int j = 0; j < column; ++j){
+          if (nextnumberArray[i][j] == 1){
+            cout << "X";
+          }else{
+            cout << "-";
+          }
+        }
+        cout << endl;
+      }
+
+/////////////////////////////////////////////
+                }// end of for loop
+
+
         }
         else {
           cerr << "not a valid mode" << endl;
