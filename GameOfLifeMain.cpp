@@ -704,7 +704,101 @@ cout << endl;
          }
        }
 
+       if (RowrandomMirror+1 == row) {
+           RplusRandom = row;
+         } else {
+           RplusRandom = RowrandomMirror+1;
+         }
+         if (RowrandomMirror-1 == -1) {
+             RminusRandom = row;
+           } else {
+             RminusRandom = RowrandomMirror-1;
+         }if (ColumnrandomMirror+1 == column) {
+             CplusRandom = column;
+         } else {
+             CplusRandom = ColumnrandomMirror+1;
+         }if (ColumnrandomMirror-1 == -1) {
+             CminusRandom = column;
+           } else {
+             CminusRandom = ColumnrandomMirror-1;
+           }
 
+
+           if(CellArrayRandom[RowrandomMirror][CplusRandom] == "X"){
+             neighborsrandomMirror++;
+           }
+           if(CellArrayRandom[RowrandomMirror][CminusRandom] == "X"){
+             neighborsrandomMirror++;
+           }
+           if(CellArrayRandom[RminusRandom][CminusRandom] == "X"){
+             neighborsrandomMirror++;
+           }
+           if(CellArrayRandom[RminusRandom][CplusRandom] == "X"){
+             neighborsrandomMirror++;
+           }
+           if(CellArrayRandom[RminusRandom][CplusRandom] == "X"){
+             neighborsrandomMirror++;
+           }
+           if(CellArrayRandom[RplusRandom][CplusRandom] == "X"){
+             neighborsrandomMirror++;
+           }
+           if(CellArrayRandom[RplusRandom][CminusRandom] == "X"){
+             neighborsrandomMirror++;
+           }
+           if(CellArrayRandom[RplusRandom][CplusRandom] == "X"){
+             neighborsrandomMirror++;
+           }
+
+           for(int c = 0; c < RowrandomMirror; ++c){
+             for(int d = 0; d < ColumnrandomMirror; ++d){
+             //  cout << "n: " << neighbors << endl;
+               if(neighborsrandomMirror < 2){
+                  nextnumberArrayRandomMirror[c][d] = 0;
+                  nextgenRandomMirror[c][d] = "-";
+                }//end if
+
+
+        ////if there's 2 neighbor, next generation cell lives on, if empty, still empty
+              else if(neighborsrandomMirror == 2){
+                 if(numberArrayRandomMirror[c][d] == 1){
+                    nextnumberArrayRandomMirror[c][d] = 1;
+                    nextgenRandomMirror[c][d] = "X";
+                }//end if
+                  else if(numberArrayRandomMirror[c][d] == 0){
+                    nextnumberArrayRandomMirror[c][d] = 0;
+                    nextgenRandomMirror[c][d] = "-";
+                 }//end else if
+                 }//end else if
+
+    //if there's 3 neighbor, next generation cell lives on, if empty, generate a new cell
+              else if(neighborsrandomMirror == 3){
+                  if(numberArrayRandomMirror[c][d] == 1){
+                      nextnumberArrayRandomMirror[c][d] = 1;
+                      nextgenRandomMirror[c][d] = "X";
+                 }//end if
+               }else if(numberArrayRandomMirror[c][d] == 0){
+                     nextnumberArrayRandomMirror[c][d] = 1;
+                     nextgenRandomMirror[c][d] = "X";
+                  }//end else if
+
+     //if there's more than 4 neighbor,overpopulation, cell die
+                    else if(neighborsrandomMirror >= 4){
+                      nextnumberArrayRandomMirror[c][d] = 0;
+                      nextgenRandomMirror[c][d] = "-";
+                  }
+                }
+                }
+
+                  for(int i = 0; i < row; ++i){
+                    for(int j = 0; j < column; ++j){
+                        if (nextnumberArrayRandomMirror[i][j] == 1){
+                            cout << "X";
+                      }else{
+                            cout << "-";
+                          }
+                        }
+                        cout << endl;
+                      }
     }//end print 100 times for
   }else
     {
