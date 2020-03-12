@@ -1,4 +1,3 @@
-
 ////look at NaiveList.cpp and header file, on how to define method and void then can call it in main
 //if main program works, can keep them in main, just do mode or at least sth in different classes
 ///have 2 versions of the grid. One is for the current generation, and the other is for computing the next generation (based on the current generation) without side effects.
@@ -551,9 +550,33 @@ cout << endl;
     else if (mode=="mirror")
     {
      cout << "mirror mode" << endl;
+     int neighborsrandomMirror = 0;
+     int RowrandomMirror=i;
+     int ColumnrandomMirror=j;
+     string nextgenRandomMirror[RowrandomMirror][ColumnrandomMirror];
+     int nextnumberArrayRandomMirror[RowrandomMirror][ColumnrandomMirror];
+     int numberArrayRandomMirror[RowrandomMirror][ColumnrandomMirror];
+     // in case row - 1 = -1
+     int protectedrRandomMirror;
+     int protectedcRandomMirror;
+     //print out 100 generations
+     for(int k = 0; k <= 100; k++){
+       cout << endl;
+       cout << "Generation # " << k << endl;
+       for(int c = 0; c < RowrandomMirror; ++c){
+         for(int d = 0; d < ColumnrandomMirror; ++d){
+           //convert X and - to 1 and 0
+           if (CellArrayRandom[c][d] == "X"){
+             numberArrayRandomMirror[c][d] = 1;
+          } else if(CellArrayRandom[c][d] == "-"){
+            numberArrayRandomMirror[c][d] = 0;
+          }
+         }
+       }
 
-    }
-    else
+
+    }//end print 100 times for
+  }else
     {
       cerr << "not a valid mode" << endl;
       exit(1);
