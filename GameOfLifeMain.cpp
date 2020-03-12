@@ -293,6 +293,22 @@ for(int i = 0; i < row; ++i){
 }  else if (mode=="mirror"){
               cout << "mirror mode: " << endl;
 
+              cout << "enter yes for pause between generations, enter no for output to a file" << endl;
+              cin >> choice;
+
+               if (choice=="yes")
+               {
+                 //pause between generations
+                 cout << "pause between generations" << endl;
+               }
+               else if (choice=="no")
+               {
+                 //output everything to a file
+                 ofstream OutputFile;
+                 cout << "enter an output file name" << endl;
+                 cin >> outputfile;
+                 OutputFile.open(outputfile);
+
               int neighbors = 0;
               int Row=rowMap;
               int Column= z;
@@ -306,8 +322,8 @@ for(int i = 0; i < row; ++i){
               int Cminus;
 
             for(int i = 0; i <= 100; i++){
-              cout << endl;
-              cout << "Generation # " << i << endl;
+              OutputFile << endl;
+              OutputFile << "Generation # " << i << endl;
               for(int c = 0; c < Row; ++c){
                 for(int d = 0; d < Column; ++d){
                   if (cellArrayMap[c][d] == "X"){
@@ -409,15 +425,21 @@ for(int i = 0; i < row; ++i){
       for(int i = 0; i < row; ++i){
         for(int j = 0; j < column; ++j){
           if (nextnumberArray[i][j] == 1){
-            cout << "X";
+            OutputFile << "X";
           }else{
-            cout << "-";
+            OutputFile << "-";
           }
         }
-        cout << endl;
+        OutputFile << endl;
       }
 
+
+
                 }// end of for loop
+              }
+
+              }
+              InputFile.close();
 
 
         }
@@ -426,24 +448,7 @@ for(int i = 0; i < row; ++i){
           exit(1);
        }
        // //pause between generation or output to a file
-        cout << "enter yes for pause between generations, enter no for output to a file" << endl;
-        cin >> choice;
 
-         if (choice=="yes")
-         {
-           //pause between generations
-           cout << "pause between generations" << endl;
-         }
-         else if (choice=="no")
-         {
-           //output everything to a file
-           ofstream OutputFile;
-           cout << "enter an output file name" << endl;
-           cin >> outputfile;
-           OutputFile.open(outputfile);
-         }
-}
-    InputFile.close();
 
     //situation for random assignment
   }else if (answer=="no"){
