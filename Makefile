@@ -1,18 +1,18 @@
 
 
-# A simple Makefile for CPSC 350
+# Makefile for the Game of Life
 # Assumes the following directory hierarchy:
-# Assignment X
+# Assignment 02
 # 	src
 #       include
 
-#this Makefile goes in the src directory
+#this Makefile goes in the CPSC350-Game-of-Life directory
 
-#change this to the correct assignment #
-EXECUTABLE := assignment0
+
+EXECUTABLE := assignment2
 
 # the source files to be built
-SOURCES := *.cpp
+SOURCES := GameOfLifeMain.cpp
 
 #stuff you don't need to worry about
 INCLUDES := -I ../include
@@ -22,7 +22,7 @@ CC := g++
 all:
 	$(CC) $(INCLUDES) $(SOURCES) -o $(EXECUTABLE).$(EXT)
 
-#find these .o, .exec files and delete them before running the program, edit this part according to what files i have in folder 
+#find these .o, .exec files and delete them before running the program, edit this part according to what files i have in folder
 realclean:
 	find . -type f -name "*.o" -exec rm '{}' \;
 	find . -type f -name "*.exe" -exec rm '{}' \;
