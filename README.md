@@ -8,6 +8,10 @@ Name2: Nidhi Vedantam
 Student ID2: 2328859
 Email2: vedantam@chapman.edu
 
+purpose: simulate the game of life in classic mode, doughnut mode, and mirror Mode
+         get input from user to make the initial generation of cells
+         output the new generations to a file
+
 references: https://www.geeksforgeeks.org/multidimensional-arrays-c-cpp/ how to initialize 2D array in c++
             https://codescracker.com/cpp/program/cpp-program-insert-element-in-array.htm insert elements in array
             https://www.geeksforgeeks.org/converting-strings-numbers-cc/convert string to int
@@ -20,3 +24,4 @@ errors:
 - output may not always be accurate
 - but allows users to explore all required aspects, prints out required outputs
 - .pause not work
+- won't stop outputing after block are all empty or get stabilized 
