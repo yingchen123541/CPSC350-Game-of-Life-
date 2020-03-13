@@ -11,7 +11,7 @@
 * Student ID2: 2328859
 * Email2: vedantam@chapman.edu
 *
-* Assignment3  The Game Of Life
+* Assignment2  The Game Of Life
 * purpose: simulate the game of life in classic mode, doughnut mode, and mirror Mode
 * get input from user to make the initial generation of cells
 * output the new generations to a file
