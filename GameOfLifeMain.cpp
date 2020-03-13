@@ -271,6 +271,21 @@ int main (){
 else if (mode=="doughnut")
        {
         cout << "doughnutmode: " << endl;
+
+        cout << "enter yes for pause between generations, enter no for outputing to a file" << endl;
+        cin >> choice;
+        if (choice=="yes")
+        {
+          cout << "pause between generations" << endl;
+        }
+        else if (choice=="no")
+        {
+          //output to a file
+          ofstream OutputFile;
+          cout << "enter an output file name" << endl;
+          cin >> outputfile;
+          OutputFile.open(outputfile);
+          cout << "outputting to file..." << endl;
         int neighbors = 0;
         int Row=rowMap;
         int Column= z;
@@ -282,8 +297,8 @@ else if (mode=="doughnut")
         int protectedc;
 
       for(int i = 0; i <= 100; i++){
-        cout << endl;
-        cout << "Generation # " << i << endl;
+        OutputFile << endl;
+        OutputFile << "Generation # " << i << endl;
         for(int c = 0; c < Row; ++c){
           for(int d = 0; d < Column; ++d){
             if (cellArrayMap[c][d] == "X"){
@@ -374,12 +389,13 @@ else if (mode=="doughnut")
 for(int i = 0; i < row; ++i){
   for(int j = 0; j < column; ++j){
     if (nextnumberArray[i][j] == 1){
-      cout << "X";
+      OutputFile << "X";
     }else{
-      cout << "-";
+      OutputFile << "-";
     }
   }
-  cout << endl;
+  OutputFile << endl;
+}
 }
 }
 
@@ -1010,11 +1026,8 @@ OutputFile << endl;
 }
 }
 
-
-<<<<<<< HEAD
 }
-=======
->>>>>>> c1925a1b1ad5eafba65c1b11730825897a411dd6
+
     }
     else if (mode=="mirror")
     {
